@@ -1,12 +1,14 @@
 // import PropTypes from 'prop-types';
-// import s from './PageTitle.module.css';
+import s from './PageTitle.module.css';
+
+import { Text } from '../../../UI/Text';
 
 export const PageTitle = () => {
   console.log('PageTitle');
   return (
-    <h1>
+    <Text size={22} tsize={26} className={s.title} As='h1' center>
       The Unsplash React Gallery
-    </h1>
+    </Text>
   );
 };
 

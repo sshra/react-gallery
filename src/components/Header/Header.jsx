@@ -8,9 +8,11 @@ export const Header = () => {
   console.log('Header');
   return (
     <div className={s.header}>
-      <Logo />
-      <PageTitle />
-      <Auth />
+      <div className={s.gridContainer}>
+        <Logo />
+        <PageTitle />
+        <Auth />
+      </div>
     </div>
   );
 };

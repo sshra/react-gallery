@@ -1,0 +1,13 @@
+.auth {
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+}
+.authLink {
+  color: inherit;
+  text-decoration: none;
+}
+.avatar {
+  width: 100%;
+  border-radius: 10px;
+}

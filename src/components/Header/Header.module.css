@@ -1,13 +1,17 @@
 .header {
-  padding: 15px 0;
+  padding: 15px;
   background-color: var(--greyE6);
 }
 
 .gridContainer {
   display: grid;
-  grid-template-columns: 30px 2fr 30px;
+  grid-template-columns: 45px 2fr 45px;
   align-items: center;
   gap: 15px;
+}
+
+.gridContainer > * {
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -16,7 +20,7 @@
   }
 
   .gridContainer {
-      grid-template-columns: 50px 1fr 2fr 50px;
+      grid-template-columns: 50px 2fr 50px;
       gap: 30px;
   }
 }

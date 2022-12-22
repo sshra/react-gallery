@@ -1,13 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { getToken } from './api-unsplash/token';
 import './App.css';
-import { Header } from './components/Header/Header';
-import { Main } from './components/Main/Main';
+import Header from './components/Header';
+import Main from './components/Main';
+import { tokenUpdate } from './store/token/tokenSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  dispatch(tokenUpdate(getToken()));
+
   return (
-    <div className="App">
-      <Header />
-      <Main/>
-    </div>
+    <Routes>
+      <Route path='*' element={ <><Header /><Main/></> } />
+    </Routes>
   );
 }
 
