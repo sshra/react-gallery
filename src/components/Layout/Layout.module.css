@@ -1,11 +1,15 @@
 .container {
   max-width: 1420px;
-  padding: 0 15px;
+  padding: 16px;
   margin: 0 auto;
+}
+
+.masonryFix {
+  margin-right: -16px;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 30px;
+    padding: 16px 30px;
   }
 }

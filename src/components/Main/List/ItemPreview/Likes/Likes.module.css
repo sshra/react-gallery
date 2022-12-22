@@ -1,0 +1,14 @@
+.likeWrap {
+  position: relative;
+}
+.count {
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

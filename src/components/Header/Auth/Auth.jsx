@@ -1,10 +1,11 @@
 // import PropTypes from 'prop-types';
-import { faRightToBracket, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import s from './Auth.module.css';
 import { urlAuth } from '../../../api-unsplash/auth';
 import { useAuth } from '../../../hooks/useAuth';
 import { Text } from '../../../UI/Text';
+import { Preloader } from '../../../UI/Preloader/Preloader';
 
 export const Auth = () => {
   const urlAuthString = urlAuth.toString();
@@ -30,7 +31,7 @@ export const Auth = () => {
       </a> : (
         authData.loading ?
         <a className={s.authLink} href={urlAuthString}>
-          <FontAwesomeIcon size="3x" icon={faSpinner} spin />
+          <Preloader/>
         </a> :
         <a className={s.authLink} href={urlAuthString}>
           <FontAwesomeIcon size="3x" icon={faRightToBracket}/>
@@ -41,7 +42,3 @@ export const Auth = () => {
 };
 
 export default Auth;
-
-Auth.propTypes = {
-
-};

@@ -3,7 +3,9 @@ import s from './Layout.module.css';
 
 export const Layout = ({ children }) =>
   <div className={s.container}>
-    {children}
+    <div className={s.masonryFix}>
+      {children}
+    </div>
   </div>;
 
 Layout.propTypes = {

@@ -1,0 +1,16 @@
+.item {
+  width: 100%;
+  min-height: 100px;
+}
+.wrap {
+  position: relative;
+}
+.dateWrap {
+  background-color: rgb(247, 163, 148);
+  color: black;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: inline-block;
+}

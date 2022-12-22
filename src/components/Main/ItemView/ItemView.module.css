@@ -1,0 +1,32 @@
+.itemView {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.canvas {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+.card {
+  margin-top: 10px;
+  max-height: 40vh;
+  max-width: 85%;
+  overflow: scroll;
+}
+.stack {
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .card {
+    max-width: calc(100% - 10px);
+  }
+  .stack {
+    justify-content: center;
+  }
+}
