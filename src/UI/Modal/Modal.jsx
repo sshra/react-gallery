@@ -3,22 +3,13 @@ import style from './Modal.module.css';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import useCloseModal from '../../hooks/useCloseModal';
 
-export const Modal = ({ children }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+export const Modal = ({ children, showCloseButton = false }) => {
   const overlayRef = useRef(null);
-
-  const closeModal = () => {
-    if (location.pathname.includes('/search/')) {
-      navigate(`/search`);
-    } else {
-      navigate(`/`);
-    }
-  };
+  const closeModal = useCloseModal();
 
   const handleClick = e => {
     const target = e.target;
@@ -57,11 +48,13 @@ export const Modal = ({ children }) => {
       <div className={style.overlay} ref={overlayRef}>
         <div className={style.modal}>
           {children}
-          <button
-            className={style.close}
-            onClick={() => closeModal() }>
-            <FontAwesomeIcon icon={faCircleXmark} />
-          </button>
+          {showCloseButton &&
+            <button
+              className={style.close}
+              onClick={() => closeModal() }>
+              <FontAwesomeIcon color='tomato' size='3x' icon={faCircleXmark} />
+            </button>
+          }
         </div>
       </div>,
       document.getElementById('modal-root')

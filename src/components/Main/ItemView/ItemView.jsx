@@ -5,29 +5,44 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { itemDetailsPending }
   from '../../../store/itemDetails/itemDetailsSlice';
-import { Preloader } from '../../../UI/Preloader/Preloader';
+import Preloader from '../../../UI/Preloader';
+import Toast from '../../../UI/Toast';
 import Author from '../List/ItemPreview/Author';
 import Likes from '../List/ItemPreview/Likes';
 import { Date } from '../List/ItemPreview/Date/Date';
 import { Button, Card, CardActions, CardContent, Chip, Typography }
   from '@mui/material';
+import useCloseModal from '../../../hooks/useCloseModal';
+import { likePending } from '../../../store/like/likeSlice';
 
 export const ItemView = () => {
   const { id } = useParams();
+  const closeModal = useCloseModal();
   const [isShownMore, setisShownMore] = useState(false);
-  const [isWide, setIsWide] = useState(false);
-  const [loading, item, token] = useSelector(state =>
-    [state.item.loading, state.item.data, state.token.token]);
+  const [isWide, setIsWide] = useState(true);
+  const [loading, error, item, token] = useSelector(state =>
+    [state.item.loading,
+      state.item.error,
+      state.item.data,
+      state.token.token
+    ]);
   const dispatch = useDispatch();
-  console.log(item);
+
   useEffect(() => {
     dispatch(itemDetailsPending(id));
   }, [id]);
 
+  const handleLike = () => {
+    dispatch(likePending({ id, do: item.liked_by_user ? 'unlike' : 'like' }));
+  };
+
+  console.log(item);
+
   return (
     <div className={s.itemView}>
-      {loading ?
-      <Preloader /> :
+      {error && <Toast>{error.message}</Toast> }
+      {loading && <Preloader />}
+      {item &&
       <div className={s.canvas}
         style={{
           backgroundImage: `url(${item.urls.regular})`,
@@ -64,10 +79,10 @@ export const ItemView = () => {
         <div className='bottom-right'>
           <div className={s.stack}>
             {token &&
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleLike}>
                 <Likes className={s.likes} size='2x'
                   likes={item.likes}
-                  liked={item.liked_by_user} />
+                  isLiked={item.liked_by_user} />
                 &nbsp;&nbsp;
                 {item.liked_by_user ? 'Unlike' : 'Like It'}
               </Button>
@@ -82,7 +97,7 @@ export const ItemView = () => {
               onClick={() => setIsWide(!isWide)}>
               {isWide ? 'Contain' : 'Cover'}
             </Button>
-            <Button variant="contained">
+            <Button variant="contained" onClick={closeModal}>
               Back to List
             </Button>
           </div>

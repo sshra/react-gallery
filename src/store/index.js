@@ -4,6 +4,7 @@ import rootSaga from './saga';
 import authReducer from './auth/authSlice';
 import tokenReducer from './token/tokenSlice';
 import itemReducer from './items/itemsSlice';
+import likeReducer from './like/likeSlice';
 
 import itemDetailsReducer from './itemDetails/itemDetailsSlice';
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     token: tokenReducer,
     items: itemReducer,
     item: itemDetailsReducer,
+    like: likeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat(sagaMiddleware)

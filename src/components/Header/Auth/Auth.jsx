@@ -1,28 +1,31 @@
 // import PropTypes from 'prop-types';
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRightToBracket }
+  from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import s from './Auth.module.css';
 import { urlAuth } from '../../../api-unsplash/auth';
 import { useAuth } from '../../../hooks/useAuth';
 import { Text } from '../../../UI/Text';
 import { Preloader } from '../../../UI/Preloader/Preloader';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { ProfileMenu } from '../../ProfileMenu/ProfileMenu';
 
 export const Auth = () => {
   const urlAuthString = urlAuth.toString();
-  const [authData, clearAuth] = useAuth();
+  const [authData] = useAuth();
+  const [open, setOpen] = useState(false);
+  const token = useSelector(state => state.token.token);
   console.log(authData);
 
-  const handleLogout = (e) => {
-    e.preventDedault();
-    clearAuth();
+  const closeFunc = () => {
+    setOpen(false);
   };
-
-  console.log(authData);
 
   return (
     <div className={s.auth}>
-      {authData.data.name ?
-      <a className={s.authLink} href="#" onClick={handleLogout}>
+      {token && authData.data.name ?
+      <a className={s.authLink} href="#" onClick={() => setOpen(true)}>
         <img
           className={s.avatar}
           alt={authData.data.name}
@@ -37,6 +40,7 @@ export const Auth = () => {
           <FontAwesomeIcon size="3x" icon={faRightToBracket}/>
         </a>
       )}
+      { open && <ProfileMenu closeFunc={closeFunc} /> }
     </div>
   );
 };

@@ -14,10 +14,10 @@ export const getToken = () => {
     const code = new URLSearchParams(location.search).get('code');
     dispatch(tokenCodeExchange(code));
   } else {
-    token = localStorage.getItem('bearer', '');
+    token = localStorage.getItem('bearer');
   }
 
-  return token;
+  return token ? token : '';
 };
 
 // request token URL

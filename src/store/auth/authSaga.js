@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { put, select, takeLatest } from 'redux-saga/effects';
+import { put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { API_URL }
   from '../../api-unsplash/const';
 import { tokenDelete } from '../token/tokenSlice';
-import { authFail, authPending, authSuccess }
+import { authFail, authLogout, authPending, authSuccess }
   from './authSlice';
 
-export function* fetchAuth() {
+function* fetchAuth() {
   const token = yield select(state => state.token.token);
   if (!token) return;
 
@@ -23,10 +23,14 @@ export function* fetchAuth() {
     yield put(authSuccess(data));
   } catch (err) {
     yield put(authFail(err.toString()));
-    yield put(tokenDelete());
   }
+}
+
+function* logoutProcess() {
+  yield put(tokenDelete());
 }
 
 export function* watchAuth() {
   yield takeLatest(authPending.type, fetchAuth);
+  yield takeEvery(authLogout.type, logoutProcess);
 }

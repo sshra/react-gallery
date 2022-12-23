@@ -12,3 +12,6 @@
   top: 0;
   bottom: 0;
 }
+.clickable {
+  cursor: pointer;
+}

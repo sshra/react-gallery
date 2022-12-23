@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   data: {
     name: null,
-    usename: null,
+    username: null,
     image: null,
   },
   error: '',
@@ -30,7 +30,9 @@ export const authSlice = createSlice({
       state.error = action.payload.error;
     },
     authLogout: (state) => {
+      console.log(initialState);
       state = { ...initialState };
+      console.log(state);
     },
   }
 });

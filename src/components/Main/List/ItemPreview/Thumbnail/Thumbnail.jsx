@@ -4,18 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import s from './Thumbnail.module.css';
 import Transparent from './img/transparent.png';
 import { Preloader } from '../../../../../UI/Preloader/Preloader';
+import { useBuildItemLink } from '../../../../../hooks/useBuildItemLink';
 
 export const Thumbnail = ({ url, alt, title, id, width, height }) => {
   const navigate = useNavigate();
   const [isReady, setIsReady] = useState(false);
+  const uri = useBuildItemLink(id);
 
   const handleLoad = () => {
     setIsReady(true);
     console.log('ready!');
   };
 
+  const handleError = () => {
+    console.log('error!');
+  };
+
   const handleClick = (e) => {
-    navigate(`/item/${id}`);
+    navigate(uri);
   };
 
   return (
@@ -29,12 +35,15 @@ export const Thumbnail = ({ url, alt, title, id, width, height }) => {
           </div>
         </div>
       }
-      <img className={s.img} style={{
-        display: isReady ? 'block' : 'none',
-        aspectRatio: `${width} / ${height}` }}
-      alt={alt} title={title} src={url}
-      loading="lazy"
-      onLoad={handleLoad}/>
+      <img
+        className={s.img}
+        style={{
+          display: isReady ? 'block' : 'none',
+          aspectRatio: `${width} / ${height}` }}
+        alt={alt} title={title} src={url}
+        onLoad={handleLoad}
+        onError={handleError}
+      />
     </div>
   );
 };

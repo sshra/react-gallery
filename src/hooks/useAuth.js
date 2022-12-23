@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authLogout, authPending } from '../store/auth/authSlice';
+import { authPending } from '../store/auth/authSlice';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -9,11 +9,10 @@ export const useAuth = () => {
   );
 
   useEffect(() => {
-    if (token) {
+    if (token && !authState.data.username) {
       dispatch(authPending());
     }
   }, [token]);
 
-  const clearAuth = () => dispatch(authLogout());
-  return [authState, clearAuth];
+  return [authState];
 };
