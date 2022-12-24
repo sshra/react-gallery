@@ -55,14 +55,16 @@ export const List = ({ pageSize = 30, mode = PUBLIC_LIST_MODE }) => {
 
   return (
     <Fragment>
-      <Masonry
-        defaultHeight={250}
-        defaultColumns={4}
-        columns={{ lg: 6, md: 4, sm: 2, xs: 1 }} spacing={2}>
-        {data.map((item) =>
-          <ItemPreview key={item.id} data={item} />)
-        }
-      </Masonry>
+      {!!data.length &&
+        <Masonry
+          defaultHeight={250}
+          defaultColumns={4}
+          columns={{ lg: 6, md: 4, sm: 2, xs: 1 }} spacing={2}>
+          {data.map((item) =>
+            <ItemPreview key={item.id} data={item} />)
+          }
+        </Masonry>
+      }
       {!isLast && <div ref={endOfList}></div>}
       {loading && <Preloader blockHeight={100}/>}
       {error && <Toast>{error.message}</Toast>}
