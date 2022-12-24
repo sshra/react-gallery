@@ -6,11 +6,13 @@ import { itemsFail, itemsLoading, itemsPending, itemsSuccess,
   from './itemsSlice';
 
 function* itemsFetch(action) {
-  const [state, token, authLoading] = yield select(
-    state => [state.items, state.token.token, state.auth.loading]
-  );
+  const [
+    state, token, tokenLoading, authLoading] =
+    yield select(
+      state => [state.items, state.token.token, state.token.loading,
+        state.auth.loading]);
   console.log(state);
-  if (state.loading || authLoading || state.error) return;
+  if (state.loading || authLoading || tokenLoading || state.error) return;
   yield put(itemsLoading({}));
   try {
     const options = {
